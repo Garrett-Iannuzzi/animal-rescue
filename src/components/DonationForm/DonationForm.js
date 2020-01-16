@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getDonations } from '../../actions/actions';
+import { postDonation } from '../../apiCalls';
 
 
 export class DonationForm extends Component {
@@ -18,7 +19,10 @@ export class DonationForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    const newDonation = { id: Date.now(), ...this.state }
+    const newDonation = { id: Date.now(), name: this.state.name, donation: Number(this.state.donation)}
+    // const exisitingDonations = this.props.donations;
+    // const allDonations = exisitingDonations.concat(newDonation)
+    // // postDonation(newDonation).then(getDonations(allDonations))
     this.props.getDonations(newDonation)
     this.resetInputs()
   }
@@ -53,8 +57,12 @@ export class DonationForm extends Component {
   }
 }
 
+export const mapStateToProps = state => ({
+  donations: state.donations
+});
+
 export const mapDispatchToProps = dispatch => ({
   getDonations: donation => dispatch(getDonations(donation)),
 });
 
-export default connect(null, mapDispatchToProps)(DonationForm);
+export default connect(mapStateToProps, mapDispatchToProps)(DonationForm);
