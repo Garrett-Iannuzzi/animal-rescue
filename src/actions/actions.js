@@ -12,3 +12,8 @@ export const hasError = errorStatus => ({
   type: 'HAS_ERROR',
   errorStatus
 });
+
+export const getDonations = donations => ({
+  type: 'GET_DONATIONS',
+  donations
+});
