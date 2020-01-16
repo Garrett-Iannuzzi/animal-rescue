@@ -7,18 +7,16 @@ import DonationForm from '../components/DonationForm/DonationForm';
 import './App.css';
 
 export class App extends Component {
-  constructor() {
-    super()
-  }
 
   componentDidMount() {
+    const { getAnimals, hasError, getDonations } = this.props;
     getAnimalsCall()
-      .then(data => this.props.getAnimals(data))
-      .catch(err => this.props.hasError(err))
+      .then(data => getAnimals(data))
+      .catch(err => hasError(err))
 
     getDonationsCall() 
-      .then(data => this.props.getDonations(data))
-      .catch(err => this.props.hasError(err))
+      .then(data => getDonations(data))
+      .catch(err => hasError(err))
   }
 
   handleLoading = () => {
@@ -32,7 +30,8 @@ export class App extends Component {
   }
 
   render() {
-    const disPlayAnimals = this.props.animals.map(animal => {
+    const { animals, donations, hasError, } = this.props;
+    const disPlayAnimals = animals.map(animal => {
       return(
         <>
           <img src={animal.img} ></img>
@@ -43,7 +42,7 @@ export class App extends Component {
       )
     })
 
-    const displayDonations = this.props.donations.flat().map(donation => {
+    const displayDonations = donations.flat().map(donation => {
       return(
         <>
           <h2>{donation.name}</h2>
@@ -55,13 +54,13 @@ export class App extends Component {
     return(
       <div>
         {!hasError.length ? <p>{this.props.error}</p> : <p></p>}
-          {!this.props.animals.length ? this.handleLoading() :  
+          {!animals.length ? this.handleLoading() :  
           <article>
             {disPlayAnimals}
           </article>
         }
         {!hasError.length ? <p>{this.props.error}</p> : <p></p>}
-        {!this.props.donations ? this.handleLoading() :
+        {!donations ? this.handleLoading() :
         <section>
           {displayDonations}
         </section>
@@ -72,13 +71,11 @@ export class App extends Component {
   }
 }
 
-
 export const mapStateToProps = state => ({
   animals: state.animals,
   error: state.hasError,
   donations: state.donations
 });
-
 
 export const mapDispatchToProps = dispatch => ({
   getAnimals: animals => dispatch(getAnimals(animals)),
