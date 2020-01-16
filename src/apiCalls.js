@@ -18,22 +18,22 @@ export const getDonationsCall = () => {
     })
 }
 
-// export const postDonation = (donation) => {
-//   console.log(donation)
-//   const options ={
-//     method: 'POST',
-//     body: JSON.stringify({
-//       newDonation: donation
-//     }),
-//     headers: {
-//       'Content-Type': 'application/json'  
-//     }
-// }
+export const postDonation = (donation) => {
+  console.log(donation)
+  const options ={
+    method: 'POST',
+    body: JSON.stringify(
+      donation
+    ),
+    headers: {
+      'Content-Type': 'application/json'  
+    }
+}
 
-//   return fetch('http://localhost:3001/api/v1/donations', options)
-//         .then(res => {
-//           if(!res.ok) {
-//             throw Error('Something is not right, try again later')
-//           }
-//           return res.json()})
-// }
+  return fetch('http://localhost:3001/api/v1/donations', options)
+        .then(res => {
+          if(!res.ok) {
+            throw Error('Something is not right, try again later')
+          }
+          return res.json()})
+}

@@ -20,9 +20,7 @@ export class DonationForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const newDonation = { id: Date.now(), name: this.state.name, donation: Number(this.state.donation)}
-    // const exisitingDonations = this.props.donations;
-    // const allDonations = exisitingDonations.concat(newDonation)
-    // // postDonation(newDonation).then(getDonations(allDonations))
+    postDonation(newDonation).then(data => getDonations(data))
     this.props.getDonations(newDonation)
     this.resetInputs()
   }
