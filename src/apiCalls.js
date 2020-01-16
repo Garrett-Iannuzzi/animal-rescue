@@ -19,7 +19,6 @@ export const getDonationsCall = () => {
 }
 
 export const postDonation = (donation) => {
-  console.log(donation)
   const options ={
     method: 'POST',
     body: JSON.stringify(
@@ -31,9 +30,9 @@ export const postDonation = (donation) => {
 }
 
   return fetch('http://localhost:3001/api/v1/donations', options)
-        .then(res => {
-          if(!res.ok) {
-            throw Error('Something is not right, try again later')
-          }
-          return res.json()})
+    .then(res => {
+      if(!res.ok) {
+        throw Error('Something is not right, try again later')
+      }
+      return res.json()})
 }

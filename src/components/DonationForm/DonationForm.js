@@ -17,11 +17,11 @@ export class DonationForm extends Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault()
     const newDonation = { id: Date.now(), name: this.state.name, donation: Number(this.state.donation)}
     postDonation(newDonation).then(data => getDonations(data))
-    this.props.getDonations(newDonation)
+    await this.props.getDonations(newDonation)
     this.resetInputs()
   }
 

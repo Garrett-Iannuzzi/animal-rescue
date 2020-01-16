@@ -31,6 +31,7 @@ export class App extends Component {
 
   render() {
     const { animals, donations, hasError, } = this.props;
+    
     const disPlayAnimals = animals.map(animal => {
       return(
         <>
@@ -53,7 +54,7 @@ export class App extends Component {
 
     return(
       <div>
-        {!hasError.length ? <p>{this.props.error}</p> : <p></p>}
+        {!hasError ? <p>{this.props.error}</p> : <p></p>}
           {!animals.length ? this.handleLoading() :  
           <article>
             {disPlayAnimals}
@@ -61,9 +62,9 @@ export class App extends Component {
         }
         {!hasError.length ? <p>{this.props.error}</p> : <p></p>}
         {!donations ? this.handleLoading() :
-        <section>
-          {displayDonations}
-        </section>
+          <section>
+            {displayDonations}
+          </section>
         }
         <DonationForm />
       </div>
