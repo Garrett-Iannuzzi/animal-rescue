@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getDonations } from '../../actions/actions';
+
 
 export class DonationForm extends Component {
   constructor(props) {
@@ -9,24 +12,49 @@ export class DonationForm extends Component {
     }
   }
 
-
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault()
+    const newDonation = { id: Date.now(), ...this.state }
+    this.props.getDonations(newDonation)
+    this.resetInputs()
+  }
+
+  resetInputs = () => {
+    this.setState({ name: '', donation: 0 })
+  }
 
   render() {
     return(
       <form>
         <label>Name:</label>
-        <input></input>
+        <input
+          className='input-name'
+          name='name'
+          value={this.state.name}
+          placeholder='Eneter Name'
+          onChange={ (e) => this.handleChange(e) } 
+        />
 
         <label>Donation Amount: $ </label>
-        <input></input>
-        <button>Submit Donation</button>
+        <input
+          className='input-donation'
+          name='donation'
+          value={this.state.donation}
+          placeholder='Eneter Donation'
+          onChange={ (e) => this.handleChange(e) } 
+        />
+        <button onClick={ (e) => this.handleSubmit(e) }>Donate!</button>
       </form>
     )
   }
 }
 
-export default DonationForm;
+export const mapDispatchToProps = dispatch => ({
+  getDonations: donation => dispatch(getDonations(donation)),
+});
+
+export default connect(null, mapDispatchToProps)(DonationForm);

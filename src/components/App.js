@@ -43,7 +43,7 @@ export class App extends Component {
       )
     })
 
-    const displayDonations = this.props.donations.map(donation => {
+    const displayDonations = this.props.donations.flat().map(donation => {
       return(
         <>
           <h2>{donation.name}</h2>
